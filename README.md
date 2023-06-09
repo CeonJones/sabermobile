@@ -1,6 +1,8 @@
-# sabermobile
+# Saber Mobile
 
-A new Flutter project.
+A mobile application for Saber Magazine
+
+https://sabermag.squarespace.com/
 
 ## Getting Started
 
