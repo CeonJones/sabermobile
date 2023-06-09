@@ -1,18 +1,14 @@
 # Saber Mobile
 
-A mobile application for Saber Magazine
+A prototype of a mobile application for Saber Magazine.
+
 
 https://sabermag.squarespace.com/
 
-## Getting Started
+## Software Requirements
 
-This project is a starting point for a Flutter application.
+Use one of the following IDE's
+* Android Studio
+* VS Code (Recommended)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter: Use Stable version 3.0
