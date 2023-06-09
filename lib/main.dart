@@ -71,77 +71,67 @@ List<LatestNewsItem> latestNewsItems = [
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Latest:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Latest:',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Stories:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ),
+        ),
+        Container(
+          height: 200,
+          child: PageView.builder(
+            controller: PageController(viewportFraction: 0.8),
+            itemCount: latestNewsItems.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () async {
+                  if (await canLaunch(latestNewsItems[index].link)) {
+                    await launch(latestNewsItems[index].link);
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Image.network(latestNewsItems[index].image),
+                ),
+              );
+            },
           ),
-        ];
-      },
-      body: Column(
-        children: [
-          Container(
-            height: 175,
-            child: PageView.builder(
-              controller: PageController(viewportFraction: 0.8),
-              itemCount: latestNewsItems.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () async {
-                    if (await canLaunch(latestNewsItems[index].link)) {
-                      await launch(latestNewsItems[index].link);
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Image.network(latestNewsItems[index].image),
-                  ),
-                );
-              },
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Stories:',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
           ),
-          Expanded(
+        ),
+        Expanded(
             child: ListView.builder(
-              itemCount: moreStoriesItems.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () async {
-                    if (await canLaunch(moreStoriesItems[index].link)) {
-                      await launch(moreStoriesItems[index].link);
-                    }
-                  },
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Image.network(moreStoriesItems[index].image),
-                        Text(moreStoriesItems[index].headline,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(moreStoriesItems[index].description),
-                      ],
-                    ),
-                  ),
-                );
+          itemCount: moreStoriesItems.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () async {
+                if (await canLaunch(moreStoriesItems[index].link)) {
+                  await launch(moreStoriesItems[index].link);
+                }
               },
-            ),
-          )
-        ],
-      ),
+              child: Card(
+                child: Column(
+                  children: [
+                    Image.network(moreStoriesItems[index].image),
+                    Text(moreStoriesItems[index].headline,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(moreStoriesItems[index].description),
+                  ],
+                ),
+              ),
+            );
+          },
+        ))
+      ],
     );
   }
 }
