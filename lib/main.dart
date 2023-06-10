@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
               Container(
                 height: 200,
                 child: PageView.builder(
-                  controller: PageController(viewportFraction: 0.8),
+                  controller: PageController(viewportFraction: 1.0),
                   itemCount: latestNewsItems.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -100,7 +100,8 @@ class HomePage extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Image.network(latestNewsItems[index].image),
+                        child: Image.network(latestNewsItems[index].image,
+                            fit: BoxFit.cover),
                       ),
                     );
                   },
