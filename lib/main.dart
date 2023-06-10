@@ -71,66 +71,80 @@ List<LatestNewsItem> latestNewsItems = [
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            'Latest:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Latest:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                ),
+              ),
+              Container(
+                height: 200,
+                child: PageView.builder(
+                  controller: PageController(viewportFraction: 0.8),
+                  itemCount: latestNewsItems.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        if (await canLaunch(latestNewsItems[index].link)) {
+                          await launch(latestNewsItems[index].link);
+                        } else {
+                          throw 'Could not launch ${latestNewsItems[index].link}';
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Image.network(latestNewsItems[index].image),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Stories:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                ),
+              ),
+            ],
           ),
         ),
-        Container(
-          height: 200,
-          child: PageView.builder(
-            controller: PageController(viewportFraction: 0.8),
-            itemCount: latestNewsItems.length,
-            itemBuilder: (context, index) {
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
               return GestureDetector(
                 onTap: () async {
-                  if (await canLaunch(latestNewsItems[index].link)) {
-                    await launch(latestNewsItems[index].link);
+                  if (await canLaunch(moreStoriesItems[index].link)) {
+                    await launch(moreStoriesItems[index].link);
+                  } else {
+                    throw 'Could not launch ${moreStoriesItems[index].link}';
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Image.network(latestNewsItems[index].image),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Image.network(moreStoriesItems[index].image),
+                        Text(moreStoriesItems[index].headline,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(moreStoriesItems[index].description),
+                      ],
+                    ),
+                  ),
                 ),
               );
             },
+            childCount: moreStoriesItems.length,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            'Stories:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-          ),
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemCount: moreStoriesItems.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () async {
-                if (await canLaunch(moreStoriesItems[index].link)) {
-                  await launch(moreStoriesItems[index].link);
-                }
-              },
-              child: Card(
-                child: Column(
-                  children: [
-                    Image.network(moreStoriesItems[index].image),
-                    Text(moreStoriesItems[index].headline,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(moreStoriesItems[index].description),
-                  ],
-                ),
-              ),
-            );
-          },
-        ))
       ],
     );
   }
