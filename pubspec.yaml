@@ -42,6 +42,8 @@ dependencies:
   url_launcher: ^6.1.11
   beautiful_soup_dart: ^0.3.0
   http: ^0.13.4
+  just_audio: ^0.9.34
+  audioplayers: ^4.1.0
 
 dev_dependencies:
   flutter_test:

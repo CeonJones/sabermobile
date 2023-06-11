@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 
 void main() {
   runApp(SaberMobileApp());
@@ -51,7 +52,7 @@ List<MoreStoriesItem> moreStoriesItems = [
       'https://images.squarespace-cdn.com/content/v1/5f75d9b14cf107041e3f6a1a/c81179ae-b819-48b2-97eb-71a5e4c4a13b/aniifa+2.png?format=1500w',
       'https://sabermag.squarespace.com/life-wr/antifastole',
       'Antifa Stole My Tear Ducts',
-      'A current events op ed written by DarWickline'),
+      'A current events op ed written by Dar Wickline'),
 ];
 
 List<LatestNewsItem> latestNewsItems = [
@@ -100,8 +101,17 @@ class HomePage extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Image.network(latestNewsItems[index].image,
-                            fit: BoxFit.cover),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.white, width: 5.0)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(latestNewsItems[index].image,
+                                fit: BoxFit.cover),
+                          ),
+                        ),
                       ),
                     );
                   },
@@ -129,14 +139,19 @@ class HomePage extends StatelessWidget {
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Card(
+                    elevation: 5.0,
                     child: Column(
                       children: [
                         Image.network(moreStoriesItems[index].image),
                         Text(moreStoriesItems[index].headline,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(moreStoriesItems[index].description),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            )),
+                        Text(
+                          moreStoriesItems[index].description,
+                        ),
                       ],
                     ),
                   ),
