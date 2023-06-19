@@ -16,6 +16,7 @@ class SaberMobileApp extends StatefulWidget {
 }
 
 class _SaberMobileAppState extends State<SaberMobileApp> {
+  
   @override
   void initState() {
     super.initState();
@@ -29,8 +30,9 @@ class _SaberMobileAppState extends State<SaberMobileApp> {
     dom.Document html = dom.Document.html(response.body);
 
     final titles = html
-        .querySelectorAll('div.summary-title > a')
-        .map((element) => element.innerHtml.trim())
+        .querySelectorAll(
+            'div.summary-title > a')
+        .map((element) => element.innerHtml.trim())    
         .toList();
 
     print('Count: ${titles.length}');

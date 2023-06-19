@@ -43,9 +43,9 @@ class HomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.black, width: 5.0)),
+                          //decoration: BoxDecoration(
+                          //border:
+                          //Border.all(color: Colors.black, width: 5.0)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(latestNewsItems[index].image,
